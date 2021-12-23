@@ -17,9 +17,9 @@ app.use(cors());
 app.use(express.json());
 
 
-app.get("/", (req, res) => {
-    res.send("Hello Express");
-});
+/* || Routes */
+const router = require('./routes/cinema');
+app.use(router);
 
 
 const PORT = process.env.PORT || 5000;

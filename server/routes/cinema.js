@@ -1,12 +1,27 @@
 const express = require('express');
 const router = express.Router();
 
+// Import controllers
+const {
+    GET_ACCOUNT,
+    GET_WISHLIST,
+    GET_WATCHED,
+    POST_LOGIN,
+    POST_REGISTER,
+    POST_ADD_WATCHED,
+    POST_ADD_WISHLIST,
+    DELETE_REMOVE_WATCHED,
+    DELETE_REMOVE_WISHLIST,
+    DELETE_ACCOUNT
+} = require('../controllers/cinema');
+
+
 /**
 *   Method:     GET
 *   Endpoint:   /:username/account
 *   Objective:  Retrieve account config info from db.
 **/
-router.get("/:username/account");
+router.get("/:username/account", GET_ACCOUNT);
 
 
 /**
@@ -14,7 +29,7 @@ router.get("/:username/account");
 *   Endpoint:   /:username/wishlist
 *   Objective:  Retrieve user's wishlist from db.
 **/
-router.get("/:username/wishlist");
+router.get("/:username/wishlist", GET_WISHLIST);
 
 
 /**
@@ -22,7 +37,7 @@ router.get("/:username/wishlist");
 *   Endpoint:   /:username/watched
 *   Objective:  Retrieve user's watched movies from db.
 **/
-router.get("/:username/watched");
+router.get("/:username/watched", GET_WATCHED);
 
 
 /**
@@ -30,7 +45,7 @@ router.get("/:username/watched");
 *   Endpoint:   /login
 *   Objective:  Logins user.
 **/
-router.post("/login");
+router.post("/login", POST_LOGIN);
 
 
 /**
@@ -38,15 +53,15 @@ router.post("/login");
 *   Endpoint:   /register
 *   Objective:  Registers user into db.
 **/
-router.post("/register");
+router.post("/register", POST_REGISTER);
 
 
 /**
 *   Method:     POST
-*   Endpoint:   /:username/just-watched/:movie_id
+*   Endpoint:   /:username/add-watched/:movie_id
 *   Objective:  Adds watched movie into user's watched list.
 **/
-router.post("/:username/just-watched/:movie_id");
+router.post("/:username/add-watched/:movie_id", POST_ADD_WATCHED);
 
 
 /**
@@ -54,7 +69,7 @@ router.post("/:username/just-watched/:movie_id");
 *   Endpoint:   /:username/add-wishlist/:movie_id
 *   Objective:  Adds movie into user's wishlist.
 **/
-router.post("/:username/add-wishlist/:movie_id");
+router.post("/:username/add-wishlist/:movie_id", POST_ADD_WISHLIST);
 
 
 /**
@@ -62,7 +77,7 @@ router.post("/:username/add-wishlist/:movie_id");
 *   Endpoint:   /:username/remove-watched/:movie_id
 *   Objective:  Removes movie from user's watched list.
 **/
-router.delete("/:username/remove-watched/:movie_id");
+router.delete("/:username/remove-watched/:movie_id", DELETE_REMOVE_WATCHED);
 
 
 /**
@@ -70,7 +85,7 @@ router.delete("/:username/remove-watched/:movie_id");
 *   Endpoint:   /:username/remove-wishlist/:movie_id
 *   Objective:  Removes movie from user's wishlist.
 **/
-router.delete("/:username/remove-wishlist/:movie_id");
+router.delete("/:username/remove-wishlist/:movie_id", DELETE_REMOVE_WISHLIST);
 
 
 /**
@@ -78,7 +93,7 @@ router.delete("/:username/remove-wishlist/:movie_id");
 *   Endpoint:   /:username/delete-account
 *   Objective:  Deletes user's account.
 **/
-router.delete("/:username/delete-account");
+router.delete("/:username/delete-account", DELETE_ACCOUNT);
 
 
 module.exports = router;

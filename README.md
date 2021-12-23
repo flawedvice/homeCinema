@@ -30,8 +30,8 @@ Mientras que en el cliente se usarán las siguientes tecnologías:
 |GET   |/:username/wishlist        |Retorna la lista de películas deseadas.                   |
 |GET   |/:username/watched         |Retorna la lista de películas ya vistas.                  |
 |POST  |/login                     |Permite ingresar a una cuenta.                            |
-|POST  |/register                  |Permite crear una nueva cuenta.
-|POST  |/:username/just-watched/:movie_id    |Crea un nuevo registro en las películas vistas. |
+|POST  |/register                  |Permite crear una nueva cuenta.                           |
+|POST  |/:username/add-watched/:movie_id     |Crea un nuevo registro en las películas vistas. |
 |POST  |/:username/add-wishlist/:movie_id     |Añade una película a la lista de deseadas.     |
 |DELETE|/:username/remove-watched/:movie_id  |Elimina una película de las vistas.             |
 |DELETE|/:username/remove-wishlist/:movie_id |Elimina una película de la lista de deseadas.   |
