@@ -21,14 +21,21 @@ Mientras que en el cliente se usarán las siguientes tecnologías:
 
 ## Especificaciones:
 ### Backend
-- Debe proveer de rutas para obtener todas las películas, según género y según la plataforma de visualización.
+- Se crearán cuentas de usuario que permitirán archivar las películas vistas y las que se desean ver.
 - Endpoints del servidor:
 
-|Método|Endpoint         |Resultado                                                        |
-|------|-----------------|-----------------------------------------------------------------|
-|GET   |/api/v1/all      |Retorna todas las películas                                      |
-|GET   |/api/v1/:platform|Retorna todas las películas que pueden verse en dicha plataforma |
-|GET   |/api/v1/:genre   |Retorna todas las películas del género elegido                   |
+|Método|Endpoint                   |Resultado                                                 |
+|------|---------------------------|----------------------------------------------------------|
+|GET   |/:username/account         |Retorna los datos de configuración de la cuenta.          |
+|GET   |/:username/wishlist        |Retorna la lista de películas deseadas.                   |
+|GET   |/:username/watched         |Retorna la lista de películas ya vistas.                  |
+|POST  |/login                     |Permite ingresar a una cuenta.                            |
+|POST  |/register                  |Permite crear una nueva cuenta.
+|POST  |/:username/just-watched/:movie_id    |Crea un nuevo registro en las películas vistas. |
+|POST  |/:username/add-wishlist/:movie_id     |Añade una película a la lista de deseadas.     |
+|DELETE|/:username/remove-watched/:movie_id  |Elimina una película de las vistas.             |
+|DELETE|/:username/remove-wishlist/:movie_id |Elimina una película de la lista de deseadas.   |
+|DELETE|/:username/delete-account |Elimina la cuenta del usuario.                             |
 
 ### Frontend
 - Debe permitir la búsqueda de películas según género, nombre, año de estreno, plataforma de visualización.
