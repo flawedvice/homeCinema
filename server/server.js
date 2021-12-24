@@ -14,7 +14,11 @@ connectDB();
 const cors = require('cors');
 app.use(cors());
 
+// Enable JSON responses
 app.use(express.json());
+
+// Get body from requests
+app.use(express.urlencoded({ extended: true }))
 
 
 /* || Routes */

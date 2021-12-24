@@ -1,15 +1,37 @@
+const User = require('../models/cinema');
 
 
 exports.GET_ACCOUNT = (req, res) => {
-    res.send("Got your account!");
+    const username = req.params.username;
+    res.send(`Username: ${username}`)
 }
 
-exports.GET_WISHLIST = (req, res) => {
-    res.send("Got your wishlist!");
+exports.GET_WISHLIST = async (req, res) => {
+    const username = req.params.username;
+    const user = await User.findOne({ username: username}).exec();
+    let wishlist;
+    try {
+        wishlist = user.wishlist;
+    } catch (e) {
+        console.log(e.message);
+        wishlist = [];
+    } finally {
+        res.send(wishlist);
+    }
 }
 
-exports.GET_WATCHED = (req, res) => {
-    res.send("Got your watched list!");
+exports.GET_WATCHED = async (req, res) => {
+    const username = req.params.username;
+    const user = await User.findOne({ username: username}).exec();
+    let watchedMovies;
+    try {
+        watchedMovies = user.watchedMovies;
+    } catch (e) {
+        console.log(e.message);
+        watchedMovies = [];
+    } finally {
+        res.send(watchedMovies);
+    }
 }
 
 
