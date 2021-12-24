@@ -1,47 +1,46 @@
 const User = require('../models/cinema');
 
 
-exports.GET_ACCOUNT = (req, res) => {
+exports.GET_ACCOUNT = async (req, res) => {
     const username = req.params.username;
-    res.send(`Username: ${username}`)
+    const user = await User.findOne({ username: username});
+    user ? res.send(`User: ${user}`) : res.send("User not found");
 }
 
 exports.GET_WISHLIST = async (req, res) => {
     const username = req.params.username;
     const user = await User.findOne({ username: username}).exec();
-    let wishlist;
-    try {
-        wishlist = user.wishlist;
-    } catch (e) {
-        console.log(e.message);
-        wishlist = [];
-    } finally {
-        res.send(wishlist);
-    }
+    user ? res.send(user.wishlist) : res.send("User not found");
 }
 
 exports.GET_WATCHED = async (req, res) => {
     const username = req.params.username;
     const user = await User.findOne({ username: username}).exec();
-    let watchedMovies;
-    try {
-        watchedMovies = user.watchedMovies;
-    } catch (e) {
-        console.log(e.message);
-        watchedMovies = [];
-    } finally {
-        res.send(watchedMovies);
+    user ? res.send(user.watchedMovies) : res.send("User not found");
+}
+
+
+
+exports.POST_LOGIN = async(req, res) => {
+    const loginData = req.body;
+    const user = await User.findOne({ username: loginData.username });
+    if (!user) {
+        res.send("There is not such user")
+    }
+    else {
+        if (loginData.password !== user.password) {
+            res.send("Wrong credentials");
+        }
+        else {
+            res.send(`Successfully logged in! Welcome back, ${user.username}`);
+        }
     }
 }
 
-
-
-exports.POST_LOGIN = (req, res) => {
-    res.send("Login!");
-}
-
-exports.POST_REGISTER = (req, res) => {
-    res.send("Register!");
+exports.POST_REGISTER = async (req, res) => {
+    const newUser = new User(req.body);
+    await newUser.save();
+    res.send(`Registered user ${newUser.username}!`);
 }
 
 exports.POST_ADD_WATCHED = (req, res) => {
@@ -62,6 +61,14 @@ exports.DELETE_REMOVE_WISHLIST = (req, res) => {
     res.send("Removed from wishlist!");
 }
 
-exports.DELETE_ACCOUNT = (req, res) => {
-    res.send("Deleted account!");
+exports.DELETE_ACCOUNT = async (req, res) => {
+    const userData = req.body;
+    const user = await User.findOne({ username: userData.username });
+    if (user && userData.password === user.password) {
+        await User.deleteOne({ username: userData.username });
+        res.send(`Deleted ${userData.username}'s account`);
+    }
+    else {
+        res.send("Wrong credentials");
+    }
 }

@@ -4,8 +4,8 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
-    watchedMovies: [],
-    wishlist: []
+    watchedMovies: [{}],
+    wishlist: [{}]
 });
 
 const User = mongoose.model('User', userSchema);
